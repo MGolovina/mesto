@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">   
+    <title>Место</title>
+</head>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="../mesto/images/logo.svg" alt="Mesto">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__avatar-wrap"><img src="../mesto/images/kusto.jpg" alt="Изображение профиля" class="profile__avatar">
+      </div>
+      <div class="profile__info">
+        <div class="profile__container">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button type="button" class="profile__edit-button"></button>
+        </div>
+        <h2 class="profile__about">Исследователь океана</h2>
+      </div>
+      <button type="button" class="profile__add-button"></button>
+    </section>
+    <section class="elements">
+      <ul class="elements__container">
+        <li class="elements__card">
+          <img src="../mesto/images/apraksin.jpg" class="elements__image" alt="Апраксин">
+          <div class="elements__title-wrap">
+            <h2 class="elements__title">Апраксин</h2>
+            <div class="elements__like-wrapper">
+            <button type="button" class="elements__like-button elements__like-button_active"></button>
+          </div>
+        </div>
+        </li>
+        <li class="elements__card">
+          <img src="../mesto/images/Enperique.jpg" class="elements__image" alt="Эн перик">
+          <div class="elements__title-wrap">
+            <h2 class="elements__title">Эн перик</h2>
+            <div class="elements__like-wrapper">
+            <button type="button" class="elements__like-button elements__like-button_active"></button>
+          </div>
+        </div>
+        </li>       
+        <li class="elements__card">
+          <img src="../mesto/images/castelluzo.jpg" class="elements__image" alt="Кастеллузо">
+          <div class="elements__title-wrap">
+            <h2 class="elements__title">Кастеллузо</h2>
+            <div class="elements__like-wrapper">
+            <button type="button" class="elements__like-button elements__like-button_active"></button>
+          </div>
+        </div>
+        </li>
+        <li class="elements__card">
+          <img src="../mesto/images/Lamote.jpg" class="elements__image" alt="Ламот">
+          <div class="elements__title-wrap">
+            <h2 class="elements__title">Ламот</h2>
+            <div class="elements__like-wrapper">
+            <button type="button" class="elements__like-button elements__like-button_active"></button>
+          </div>
+        </div>
+        </li>       
+        <li class="elements__card">
+          <img src="../mesto/images/Prague.jpg" class="elements__image" alt="Прага">
+          <div class="elements__title-wrap">
+            <h2 class="elements__title">Прага</h2>
+            <div class="elements__like-wrapper">
+            <button type="button" class="elements__like-button elements__like-button_active"></button>
+          </div>
+        </div>
+        </li>
+        <li class="elements__card">
+          <img src="../mesto/images/tsarskoeselo.jpg" class="elements__image" alt="Царское село">
+          <div class="elements__title-wrap">
+            <h2 class="elements__title">Царское село</h2>
+            <div class="elements__like-wrapper">
+            <button type="button" class="elements__like-button elements__like-button_active"></button>
+          </div>
+        </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyrights">&copy;&nbsp;2021 Mesto Russia</p>
+  </footer>
+    <div class="popup popup_profile-edit">
+    <div class="popup__container">
+      <button class="popup__close"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form">
+        <input type="text" class="popup__input popup__input_name">
+        <input type="text" class="popup__input popup__input_about">
+        <button type="submit" class="popup__button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <script src="../mesto/scripts/index.js"></script>
+</body>
