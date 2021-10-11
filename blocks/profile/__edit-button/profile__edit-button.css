@@ -8,6 +8,7 @@
   height: 24px;
   padding: 0;
   border-color: #ffffff;
+  border-width: 1px;
   display: inline-block;
   transition: .2s;
   outline: none;

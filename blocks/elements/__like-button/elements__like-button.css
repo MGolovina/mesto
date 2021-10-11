@@ -3,13 +3,13 @@
     width: 22px;
     height: 19px;
     background-image: url(../../../images/like.svg);
-    border: none;
     background-color: transparent;
+    border: none;
     transition: .2s;
     outline: none;
   }
   
   .elements__like-button:hover {
-    opacity: .5;
+    opacity: .6;
     cursor: pointer;
   }

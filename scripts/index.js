@@ -9,6 +9,8 @@ const aboutField = document.querySelector('.popup__input_about');
 const profileAbout = document.querySelector('.profile__about');
 
 
+
+
 function openPopup() {
     popup.classList.add('popup_opened')
     nameField.value = profileName.textContent;

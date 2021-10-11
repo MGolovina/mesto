@@ -6,7 +6,7 @@
   width: 120px;
 }
 
-@media screen and (max-width: 699px) {
+@media screen and (max-width: 620px) {
   .profile__avatar-wrap {
     margin-right: 0;
     margin-bottom: 26px;
