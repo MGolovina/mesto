@@ -1,0 +1,7 @@
+.popup__transition {
+    opacity: 0;
+    transition: visibility 0s, opacity .5s linear;
+}
+.popup__transition:hover {
+    opacity: 1;
+}
