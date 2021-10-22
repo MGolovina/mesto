@@ -1,5 +1,0 @@
-.popup_transition {
-    visibility: visible;
-    opacity: 1;
-    transition: visibility .5s, opacity .5s linear;
-}

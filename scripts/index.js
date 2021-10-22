@@ -14,9 +14,9 @@ const placeNameField = document.querySelector('.popup__input_place_name');
 const placeName = document.querySelector('.elements__title');
 const placeUrlField = document.querySelector('.popup__input_place_url');
 const btnAddPost = document.getElementById('btnPopupAddPost');
-const popupPlaceZoom = document.querySelector(".popup_zoom-image");
+const popupPlaceZoom = document.querySelector(".popup__zoom-image");
 const postZoomImg = document.querySelector('.popup__image');
-const postZoomTitle = document.querySelector('.popup__caption');
+const postZoomTitle = document.querySelector('.popup__figure-caption');
 //#endregion
 
 //#region Данные
@@ -105,8 +105,8 @@ function AddCloseEvent() {
     for (let i = 0; i < closeButtons.length; i++)
         closeButtons[i].addEventListener('click', closePopup)
 }
-
 //#region Действия с постами
+
 function AddPost() {
     event.preventDefault();
     initialCards.unshift(
@@ -124,6 +124,16 @@ function DeletePost() {
     initialCards.splice(currentDeleBtn.getAttribute("itemId"), 1);
     currentDeleBtn.closest("li").remove();
 }
+
+function LikePost() {
+    let likeBtn = event.target;
+    likeBtn.classList.add("elements__like-button_active");
+    for (let i = 0; i < dataPosts.length; i++)
+        if (dataPosts[i].id == likeBtn.getAttribute('itemid')) {
+            dataPosts[i].likesCount++;
+            break;
+        }
+}
 //#endregion
 
 //#region Создание карточек постов
@@ -136,18 +146,16 @@ function CreateCardFromTemplate(postTemplateId, name, link, id) {
     cardImg.alt = name;
     cardImg.addEventListener('click', openPopupPlaceZoom);
     let cardTitle = newCard.querySelector(".elements__title");
-    cardTitle.textContent = name;
+    cardTitle.innerHTML = name;   
     let btnLike = newCard.querySelector(".elements__like-button");
     btnLike.addEventListener('click', function (event) {
-    event.target.classList.toggle("elements__like-button_active");
+        event.target.classList.toggle("elements__like-button_active");
     });
-
     let btnDelete = newCard.querySelector(".elements__card-button_trash");
     btnDelete.addEventListener('click', DeletePost);
     btnDelete.setAttribute("itemId", id);
     return newCard;
 }
-
 function CreateCardsFromTemplate(idContainer, postTemplateId, dataArray) {
     let container = document.getElementById(idContainer);
     if (container != undefined) {
