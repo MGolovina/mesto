@@ -14,7 +14,7 @@ const placeNameField = document.querySelector('.popup__input_place_name');
 const placeName = document.querySelector('.elements__title');
 const placeUrlField = document.querySelector('.popup__input_place_url');
 const btnAddPost = document.getElementById('btnPopupAddPost');
-const popupPlaceZoom = document.querySelector(".popup__zoom");
+const popupPlaceZoom = document.querySelector(".popup_zoom");
 const postZoomImg = document.querySelector('.popup__image');
 const postZoomTitle = document.querySelector('.popup__figure-caption');
 //#endregion
