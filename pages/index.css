@@ -34,7 +34,7 @@
 @import url(../blocks/popup/__figure-container/popup__figure-container.css);
 @import url(../blocks/elements/__like-button/_active/elements__like-button_active.css);
 @import url(../blocks/popup/__figure-caption/popup__figure-caption.css);
-@import url(../blocks/popup/__transition/popup__transition.css);
+@import url(../blocks/popup/__transition/popup_transition.css);
 
 
 
