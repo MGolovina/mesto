@@ -57,7 +57,7 @@ function openPopupPlaceZoom() {
     const currentPostImg = event.target;
     postZoomImg.src = currentPostImg.src;
     postZoomImg.alt = currentPostImg.alt;
-    const currentPostTitle = currentPostImg.closest("li").querySelector(".elements__title");
+    const currentPostTitle = currentPostImg.closest(".elements__card").querySelector(".elements__title");
     postZoomTitle.innerText = currentPostTitle.innerText;
 }
 
