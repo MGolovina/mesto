@@ -1,12 +1,9 @@
 //#region Элементы управления
-
 const popupProfile = document.querySelector('.popup_profile-edit');
 const popupPlace = document.querySelector('.popup_card-add');
 const popupPlaceZoom = document.querySelector(".popup_zoom");
 const editButton = document.querySelector('.profile__edit-button');
-const formButton = document.querySelector('.popup__button')
-const profileForm = document.querySelector('.popup__form_profile');
-const nameField = document.querySelector('.popup__input_type_name');
+const formButton = document.querySelector('.popup__button');
 const profileName = document.querySelector('.profile__name');
 const aboutField = document.querySelector('.popup__input_type_about');
 const profileAbout = document.querySelector('.profile__about');
@@ -21,9 +18,11 @@ const postsContainer = document.querySelector('.elements__container');
 const popupEditCloseBtn = document.querySelector('.popup__close_edit');
 const popupAddCloseBtn = document.querySelector('.popup__close_card');
 const popupZoomCloseBtn = document.querySelector('.popup__close_zoom');
+const profileForm = document.querySelector('.popup__form_profile');
+const nameField = document.querySelector('.popup__input_type_name');
+const ESC_KEY = "Escape";
 
 //#endregion
-
 
 //#region Методы
 
@@ -38,6 +37,13 @@ function openPopup(popup) {
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+}
+
+function closeByEsc(evt) {
+    if (evt.key === ESC_KEY) {
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
+    }
 }
 
 function openProfilePopup() {
@@ -57,7 +63,7 @@ function openPopupPlaceZoom() {
     const currentPostImg = event.target;
     postZoomImg.src = currentPostImg.src;
     postZoomImg.alt = currentPostImg.alt;
-    const currentPostTitle = currentPostImg.closest(".elements__card").querySelector(".elements__title");
+    const currentPostTitle = currentPostImg.closest("li").querySelector(".elements__title");
     postZoomTitle.innerText = currentPostTitle.innerText;
 }
 
@@ -107,6 +113,8 @@ function createCardFromTemplate(postTemplateId, name, link, id) {
 }
 //#endregion
 
+
+
 //#region Точка входа
 profileForm.addEventListener('submit', submitProfileForm);
 editButton.addEventListener('click', openProfilePopup);
@@ -115,6 +123,19 @@ btnAddPost.addEventListener('click', addPost);
 popupEditCloseBtn.addEventListener('click', () => closePopup(popupProfile));
 popupAddCloseBtn.addEventListener('click', () => closePopup(popupPlace));
 popupZoomCloseBtn.addEventListener('click', () => closePopup(popupPlaceZoom));
+popupProfile.addEventListener('click', function(evt){
+    if (evt.target.classList.contains('popup')){
+        closePopup(popupProfile)
+    };
+})
+
+popupPlace.addEventListener('click', function(evt){
+    if (evt.target.classList.contains('popup')){
+        closePopup(popupPlace)
+    };
+})
+popupProfile.addEventListener('keydown', closeByEsc);
+popupPlace.addEventListener('keydown', closeByEsc);
 //#endregion
 
 

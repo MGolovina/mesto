@@ -13,3 +13,7 @@
 .popup__input:first-of-type {
     padding-top: 0;
 }
+
+.popup__input:invalid {
+    border-bottom-color: 1px solid red;
+}
