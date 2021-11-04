@@ -21,7 +21,7 @@ const popupZoomCloseBtn = document.querySelector('.popup__close_zoom');
 const profileForm = document.querySelector('.popup__form_profile');
 const nameField = document.querySelector('.popup__input_type_name');
 const ESC_KEY = "Escape";
-
+const postTemplate = document.getElementById('postTemplate'); 
 //#endregion
 
 //#region Методы
@@ -33,10 +33,12 @@ initialCards.forEach(element =>
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEsc);
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEsc);
 }
 
 function closeByEsc(evt) {
@@ -46,6 +48,12 @@ function closeByEsc(evt) {
     }
 }
 
+function closeByOverlayClick(evt) {
+    if(evt.target.classList.contains('popup')) {
+      closePopup(evt.target);
+    }
+}
+  
 function openProfilePopup() {
     openPopup(popupProfile);
     nameField.value = profileName.textContent;
@@ -53,26 +61,27 @@ function openProfilePopup() {
 }
 
 function openPopupPlace() {
-    openPopup(popupPlace);
+    btnAddPost.classList.add(cardElements.inactiveButtonClass);
+    btnAddPost.disabled = true;
+    openPopup(popupPlace);  
     placeNameField.value = "";
-    placeUrlField.value = "";
+    placeUrlField.value = "";   
 }
 
-function openPopupPlaceZoom() {
+function openPopupPlaceZoom(link, name) {
     openPopup(popupPlaceZoom)
-    const currentPostImg = event.target;
-    postZoomImg.src = currentPostImg.src;
-    postZoomImg.alt = currentPostImg.alt;
-    const currentPostTitle = currentPostImg.closest("li").querySelector(".elements__title");
-    postZoomTitle.innerText = currentPostTitle.innerText;
-}
-
+    postZoomTitle.textContent = name; 
+    postZoomImg.alt = name; 
+    postZoomImg.src =  link;
+} 
+ 
 function submitProfileForm(event) {
     event.preventDefault()
     profileName.textContent = nameField.value;
     profileAbout.textContent = aboutField.value;
     closePopup(popupProfile);
 }
+ 
 //#endregion
 
 //#region Действия с постами
@@ -80,35 +89,34 @@ function submitProfileForm(event) {
 function addPost() {
     event.preventDefault();
     postsContainer.prepend(createCardFromTemplate('postTemplate',
-        placeNameField.value,
-        placeUrlField.value));
-        closePopup(popupPlace);
+    placeNameField.value,
+    placeUrlField.value));
+    closePopup(popupPlace);
 }
 
 function deletePost() {
     const currentDeleBtn = event.target;
-    currentDeleBtn.closest("li").remove();
+    currentDeleBtn.closest(".elements__card").remove();
 }
 //#endregion
 
 //#region Создание карточек постов
 
-function createCardFromTemplate(postTemplateId, name, link, id) {
-    const postTemplate = document.getElementById(postTemplateId);
+function createCardFromTemplate(postTemplateId, name, link, id) {  
     const newCard = postTemplate.content.querySelector(".elements__card").cloneNode(true);
     const cardImg = newCard.querySelector(".elements__image");
     cardImg.src = link;
     cardImg.alt = name;
     cardImg.addEventListener('click', openPopupPlaceZoom);
     const cardTitle = newCard.querySelector(".elements__title");
-    cardTitle.innerHTML = name;
+    cardTitle.textContent = name;
     const btnLike = newCard.querySelector(".elements__like-button");
     btnLike.addEventListener('click', function (event) {
         event.target.classList.toggle("elements__like-button_active");
     });
     const btnDelete = newCard.querySelector(".elements__card-button_trash");
     btnDelete.addEventListener('click', deletePost);
-    btnDelete.setAttribute("itemId", id);
+    cardImg.addEventListener('click', () => openPopupPlaceZoom(link, name)); 
     return newCard;
 }
 //#endregion
@@ -123,19 +131,9 @@ btnAddPost.addEventListener('click', addPost);
 popupEditCloseBtn.addEventListener('click', () => closePopup(popupProfile));
 popupAddCloseBtn.addEventListener('click', () => closePopup(popupPlace));
 popupZoomCloseBtn.addEventListener('click', () => closePopup(popupPlaceZoom));
-popupProfile.addEventListener('click', function(evt){
-    if (evt.target.classList.contains('popup')){
-        closePopup(popupProfile)
-    };
-})
-
-popupPlace.addEventListener('click', function(evt){
-    if (evt.target.classList.contains('popup')){
-        closePopup(popupPlace)
-    };
-})
-popupProfile.addEventListener('keydown', closeByEsc);
-popupPlace.addEventListener('keydown', closeByEsc);
+popupProfile.addEventListener('click', closeByOverlayClick);
+popupPlace.addEventListener('click', closeByOverlayClick);
+popupPlaceZoom.addEventListener('click', closeByOverlayClick);
 //#endregion
 
 

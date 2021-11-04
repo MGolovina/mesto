@@ -1,4 +1,4 @@
-const enableValidation = {
+const cardElements = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
@@ -7,62 +7,54 @@ const enableValidation = {
     errorClass: 'popup__error_visible'
   }; 
 
-  function enableValid (formConfig) {
-     const forms =  [...document.querySelectorAll(formConfig.formSelector)]
-     forms.forEach((form) => setFormListeners(form, formConfig))     
+  function enableValidation (formConfig) {
+      const forms =  [...document.querySelectorAll(formConfig.formSelector)]
+      forms.forEach((form) => setFormListeners(form, formConfig))     
   }
 
-  function setFormListeners (form, enableValidation ) {
+  function setFormListeners (form, cardElements ) {
       form.addEventListener('submit',handleSubmit);
-      form.addEventListener('input', () => setSubmitButtonState(form, enableValidation) )
-
-      const inputs = [...form.querySelectorAll(enableValidation.inputSelector)]
-
+      form.addEventListener('input', () => setSubmitButtonState(form, cardElements))
+      const inputs = [...form.querySelectorAll(cardElements.inputSelector)]
       inputs.forEach(inputElement => {
           inputElement.addEventListener('input',
-          ()=> handleFieldValidation(inputElement, form, enableValidation) )
+          ()=> handleFieldValidation(inputElement, form, cardElements) )
       })
-      setSubmitButtonState(form, enableValidation)
+      setSubmitButtonState(form, cardElements)
   }
 
   function handleSubmit(event) {
     event.preventDefault()
-}
-
-  function setSubmitButtonState(form,enableValidation) {
-      const btn = form.querySelector(enableValidation.submitButtonSelector);
-      btn.disabled = !form.checkValidity();
-      btn.classList.toggle(enableValidation.inactiveButtonClass, !form.checkValidity())
   }
 
-  function handleFieldValidation(input, form, enableValidation) {
+  function setSubmitButtonState(form,cardElements) {
+      const btn = form.querySelector(cardElements.submitButtonSelector);
+      btn.disabled = !form.checkValidity();
+      btn.classList.toggle(cardElements.inactiveButtonClass, !form.checkValidity())
+  }
+
+  
+  function handleFieldValidation(input, form, cardElements) {
       console.log(input)
-
       if (!input.validity.valid) {
-          showError(input, form, enableValidation)
-
+          showError(input, form, cardElements)
       } else {
-
-        hideError(input, form, enableValidation)
+        hideError(input, form, cardElements)
       }
   }
 
-  function showError (input, form, enableValidation) {
+  function showError (input, form, cardElements) {
       const errorElement = form.querySelector(`#${input.id}-error`);
-      input.classList.add(enableValidation.inputErrorClass);
+      input.classList.add(cardElements.inputErrorClass);
       errorElement.textContent = input.validationMessage;
     }
 
-    function hideError (input, form, enableValidation) {
+    function hideError (input, form, cardElements) {
         const errorElement = form.querySelector(`#${input.id}-error`);
-        input.classList.remove(enableValidation.inputErrorClass);
+        input.classList.remove(cardElements.inputErrorClass);
         errorElement.textContent = '';
   
       }
-  enableValid(enableValidation);
+      
+  enableValidation(cardElements);
   
-//   const newItemForm = document.querySelector('[name="new-item"]')
-
-//   newItemForm.addEventListener('submit', ()=> {
-
-//   })
