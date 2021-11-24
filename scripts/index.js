@@ -1,4 +1,6 @@
 //#region Элементы управления
+import { initialCards } from "./data.js";
+import { Card } from "./Card.js";
 const popupProfile = document.querySelector('.popup_profile-edit');
 const popupPlace = document.querySelector('.popup_card-add');
 const popupPlaceZoom = document.querySelector(".popup_zoom");
@@ -22,13 +24,17 @@ const profileForm = document.querySelector('.popup__form_profile');
 const nameField = document.querySelector('.popup__input_type_name');
 const ESC_KEY = "Escape";
 const postTemplate = document.getElementById('postTemplate'); 
+
 //#endregion
 
 //#region Методы
 
-initialCards.forEach(element =>
-    postsContainer.append(createCardFromTemplate(
-        'postTemplate', element.name, element.link, 0))
+initialCards.forEach(item => {
+    const card = new Card(item, postTemplate);
+    const cardItem = card.renderCard();
+    postsContainer.prepend(cardItem);
+}
+   
 );
 
 function openPopup(popup) {
