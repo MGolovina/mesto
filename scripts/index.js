@@ -3,8 +3,6 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
 //#region Элементы управления
-import { initialCards } from "./data.js";
-import { Card } from "./Card.js";
 const popupProfile = document.querySelector('.popup_profile-edit');
 const popupPlace = document.querySelector('.popup_card-add');
 const popupPlaceZoom = document.querySelector(".popup_zoom");
@@ -27,7 +25,6 @@ const popupZoomCloseBtn = document.querySelector('.popup__close_zoom');
 const profileForm = document.querySelector('.popup__form_profile');
 const nameField = document.querySelector('.popup__input_type_name');
 const ESC_KEY = "Escape";
-<<<<<<< HEAD
 const postTemplate = document.getElementById('postTemplate');
 const selectors = {
     formSelector: '.popup__form',
@@ -37,25 +34,13 @@ const selectors = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
   }; 
-=======
-const postTemplate = document.getElementById('postTemplate'); 
->>>>>>> b85f0db111d3684c9a4c1e297e5143d53ab6978d
 
 //#endregion
 
 //#region Методы
 
-<<<<<<< HEAD
 initialCards.forEach(element =>
     postsContainer.append(new Card(element, postTemplate).renderCard())
-=======
-initialCards.forEach(item => {
-    const card = new Card(item, postTemplate);
-    const cardItem = card.renderCard();
-    postsContainer.prepend(cardItem);
-}
-   
->>>>>>> b85f0db111d3684c9a4c1e297e5143d53ab6978d
 );
 
 function closeByEsc(evt) {
