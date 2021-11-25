@@ -53,16 +53,16 @@ _getInvalidInput(inputList) {
 resetValidation() {
   this._toggleButtonState();
   this._inputList.forEach(inputElement => {
-    this._hideError(inputElement)
+  this._hideInputError(inputElement)
   })
 }
 
 _setFormListeners() {
   this._toggleButtonState()
   this._inputList.forEach((inputElement) => {
-  inputElement.addEventListener('input', () => {
+    inputElement.addEventListener('input', () => {    
     this._checkInputValidity(inputElement)
-    this._toggleButtonState()
+    this._toggleButtonState()    
   })
 })
 }
