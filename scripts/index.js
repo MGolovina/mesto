@@ -61,6 +61,7 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closeByEsc);
+
 }
 
 function closeByEsc(evt) {
@@ -77,9 +78,10 @@ function openProfilePopup() {
 }
 
 function openPopupPlace() {
-    openPopup(popupPlace);
     placeNameField.value = "";
     placeUrlField.value = "";
+    cardAddFormValidator.disableSubmitButton();
+    openPopup(popupPlace);
 }
 
 function submitProfileForm(event) {
