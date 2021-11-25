@@ -114,7 +114,7 @@ popups.forEach((popup) => {
 
 //#region Действия с постами
 
-function addPost() {
+function addPost(event) {
     event.preventDefault();
     postsContainer.prepend(
         createCard({
@@ -130,9 +130,10 @@ function addPost() {
 //#region Точка входа
 
 profileForm.addEventListener('submit', submitProfileForm);
+popupPlace.addEventListener('submit', addPost);
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openPopupPlace);
-btnAddPost.addEventListener('click', addPost);
+popupPlace.addEventListener('submit', addPost);
 
 //#endregion
 
