@@ -133,7 +133,6 @@ profileForm.addEventListener('submit', submitProfileForm);
 popupPlace.addEventListener('submit', addPost);
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openPopupPlace);
-popupPlace.addEventListener('submit', addPost);
 
 //#endregion
 
