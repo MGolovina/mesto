@@ -1,64 +1,52 @@
 class Card {
-    constructor(item, postTemplate) {
+    constructor(item, selectors, postTemplate, handleCardClick, openPopup, closePopup) {
         this._name = item.name;
         this._link = item.link;
         this._postTemplate = postTemplate;
-        this._view = this._getCardTemplate();
-    }
+        this._handleCardClick = handleCardClick
+        this._openPopup = openPopup;
+        this._closePopup = closePopup;
+        this._selectors = selectors;
 
-    _getCardTemplate() {
-        const newCard = this._postTemplate.content.querySelector(".elements__card").cloneNode(true);
-        const cardImg = newCard.querySelector(".elements__image");
-        cardImg.src = this._link;
-        cardImg.alt = this._name;
-        const cardTitle = newCard.querySelector(".elements__title");
-        cardTitle.textContent = this._name;
-        const btnLike = newCard.querySelector(".elements__like-button");
-        btnLike.addEventListener('click', this._setLike);
-        const btnDelete = newCard.querySelector(".elements__card-button_trash");
-        btnDelete.addEventListener('click', this._deletePost);
-        cardImg.addEventListener("click", () => { this._openZoom(this.link, this.name) });
-        return newCard;
     }
-
-    _deletePost() {
-        const currentDeleBtn = event.target;
-        currentDeleBtn.closest(".elements__card").remove();
-    }
-
-    _openZoom() {
-        this._openPopupPlaceZoom(this._link, this._name)
-    }
-
-    _setLike() {
-        event.target.classList.toggle("elements__like-button_active");
-    }
-
-    _closeByEsc(evt) {
-        if (evt.key === "Escape") {            
-            this._closePopup(document.querySelector('.popup_zoom'));
-        }
-    }
-
-    _openPopup(popup) {
-        popup.classList.add('popup_opened');
-        document.addEventListener('keydown', this._closeByEsc.bind(this));
-    }
-
-    _closePopup(popup) {
-        popup.classList.remove('popup_opened');
-        document.removeEventListener('keydown', this._closeByEsc);
-    }
-
-    _openPopupPlaceZoom(link, name) {
-        this._openPopup(document.querySelector(".popup_zoom"))
-        document.querySelector('.popup__figure-caption').textContent = name;
-        document.querySelector('.popup__image').alt = name;
-        document.querySelector('.popup__image').src = link;
-    }
+     
+    _getCardTemplate() { 
+        this._view = this._postTemplate.content
+        .querySelector('.elements__card')
+        .cloneNode(true)
+        return this._view;
+    };
 
     renderCard() {
-        return this._getCardTemplate();
+        this._getCardTemplate();
+        this._setEventListeners();
+        this._cardImg = this._view.querySelector('.elements__image')
+        this._cardImg.src = this._link
+        this._cardImg.alt - this._name
+        this._view.querySelector('.elements__title').textContent = this._name
+        return this._view
+   };
+        
+    _setEventListeners() {
+        this._view.querySelector(".elements__like-button")
+        .addEventListener('click', this._setLike);
+
+        this._view.querySelector(".elements__card-button_trash")
+        .addEventListener('click', this._deletePost);
+
+        this._view.querySelector(".elements__image")
+        .addEventListener('click', () => 
+        this._handleCardClick(this._name, this._link)
+        );
+    }
+
+    _setLike(event) {
+        event.target.classList.toggle("elements__like-button_active");
+    }
+    
+    _deletePost(event) {
+        const currentDeleBtn = event.target;
+        currentDeleBtn.closest(".elements__card").remove();
     }
 }
 

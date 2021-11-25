@@ -19,9 +19,6 @@ const btnAddPost = document.getElementById('btnPopupAddPost');
 const postZoomImg = document.querySelector('.popup__image');
 const postZoomTitle = document.querySelector('.popup__figure-caption');
 const postsContainer = document.querySelector('.elements__container');
-const popupEditCloseBtn = document.querySelector('.popup__close_edit');
-const popupAddCloseBtn = document.querySelector('.popup__close_card');
-const popupZoomCloseBtn = document.querySelector('.popup__close_zoom');
 const profileForm = document.querySelector('.popup__form_profile');
 const nameField = document.querySelector('.popup__input_type_name');
 const ESC_KEY = "Escape";
@@ -38,10 +35,33 @@ const selectors = {
 //#endregion
 
 //#region Методы
+function createCard(item) {
+    const card = new Card(item, selectors, postTemplate, handleCardClick, openPopup, closePopup);
+    const cardElement = card.renderCard();
+    return cardElement;
+}
 
-initialCards.forEach(element =>
-    postsContainer.append(new Card(element, postTemplate).renderCard())
-);
+initialCards.forEach((item) => {
+    const card = createCard(item);
+    postsContainer.append(card);
+});
+
+function handleCardClick (name, link) {   
+        postZoomTitle.textContent = name;
+        postZoomImg.alt = name;
+        postZoomImg.src = link;
+        openPopup(popupPlaceZoom);
+}
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEsc);
+}
+
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEsc);
+}
 
 function closeByEsc(evt) {
     if (evt.key === "Escape") {
@@ -50,31 +70,13 @@ function closeByEsc(evt) {
     }
 }
 
-function closeByOverlayClick(evt) {
-    if (evt.target.classList.contains('popup')) {
-        closePopup(evt.target);
-    }
-}
-
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeByEsc);
-}
-
 function openProfilePopup() {
     openPopup(popupProfile);
     nameField.value = profileName.textContent;
     aboutField.value = profileAbout.textContent;
 }
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEsc);
-}
-
 function openPopupPlace() {
-    //btnAddPost.classList.add(cardElements.inactiveButtonClass);
-    btnAddPost.disabled = true;
     openPopup(popupPlace);
     placeNameField.value = "";
     placeUrlField.value = "";
@@ -93,6 +95,18 @@ profileEditFormValidator.enableValidation()
 const cardAddFormValidator = new FormValidator(selectors, popupPlace)
 cardAddFormValidator.enableValidation()
 
+const popups = document.querySelectorAll('.popup')
+
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+            }
+            if (evt.target.classList.contains('popup__close')) {
+                closePopup(popup)
+              }
+        })
+    })
 
 //#endregion
 
@@ -101,12 +115,11 @@ cardAddFormValidator.enableValidation()
 function addPost() {
     event.preventDefault();
     postsContainer.prepend(
-        new Card({
+        createCard({
             name: placeNameField.value,
             link: placeUrlField.value
-        },
-            postTemplate).renderCard()
-    );
+        },)
+            );
     closePopup(popupPlace);
 }
 
@@ -118,12 +131,6 @@ profileForm.addEventListener('submit', submitProfileForm);
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openPopupPlace);
 btnAddPost.addEventListener('click', addPost);
-popupEditCloseBtn.addEventListener('click', () => closePopup(popupProfile));
-popupAddCloseBtn.addEventListener('click', () => closePopup(popupPlace));
-popupZoomCloseBtn.addEventListener('click', () => closePopup(popupPlaceZoom));
-popupProfile.addEventListener('click', closeByOverlayClick);
-popupPlace.addEventListener('click', closeByOverlayClick);
-popupPlaceZoom.addEventListener('click', closeByOverlayClick);
 
 //#endregion
 

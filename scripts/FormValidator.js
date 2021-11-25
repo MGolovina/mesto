@@ -40,8 +40,7 @@ _toggleButtonState() {
   if (this._getInvalidInput(this._inputList)) {
     this.disableSubmitButton()
   } else {
-    this._buttonElement.classList.remove(this._inactiveButtonClass)
-    this._buttonElement.disabled = false
+    this.enableSubmitButton()
   }
 }
 
@@ -49,6 +48,13 @@ _getInvalidInput(inputList) {
   return inputList.some((inputElement) => {
   return !inputElement.validity.valid
 })
+}
+
+resetValidation() {
+  this._toggleButtonState();
+  this._inputList.forEach(inputElement => {
+    this._hideError(inputElement)
+  })
 }
 
 _setFormListeners() {
