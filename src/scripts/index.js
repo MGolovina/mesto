@@ -82,7 +82,8 @@ function addPost(event) {
         })
     );
     popupPlace.close();
-
+    const btnAddPost = document.getElementById('btnPopupAddPost'); 
+    btnAddPost.disabled = true;
 }
 //#endregion
 
