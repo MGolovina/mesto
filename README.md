@@ -4,7 +4,7 @@
 ### Описание
 Одностраничный адаптивный сайт с возможностью редактирования имени профиля и описания, добавления, лайка и удаления картинки.
 
-[Место](https://mgolovina.github.io/mesto/)
+<!-- [Место](https://mgolovina.github.io/mesto/) -->
 
 - Технологии: HTML, CSS, BEM
 - Работа с [макетами Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1).

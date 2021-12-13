@@ -3,7 +3,7 @@ class Card {
         this._name = item.name;
         this._link = item.link;
         this._postTemplate = postTemplate;
-        this._handleCardClick = handleCardClick
+        this._handleCardClick = handleCardClick;
         this._selectors = selectors;
 
     }
@@ -18,10 +18,11 @@ class Card {
     renderCard() {
         this._getCardTemplate();
         this._setEventListeners();
+        this._view.querySelector('.elements__title').textContent = this._name
         this._cardImg = this._view.querySelector('.elements__image')
         this._cardImg.src = this._link
-        this._cardImg.alt - this._name
-        this._view.querySelector('.elements__title').textContent = this._name
+        this._cardImg.alt = this._name
+        
         return this._view
     };
 

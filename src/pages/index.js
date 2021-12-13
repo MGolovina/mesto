@@ -1,11 +1,11 @@
-import '../pages/index.css';
-import initialCards from "./data.js"
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
+import '../pages/index.css'; 
+import initialCards from "../utils/data.js"
+import Card from "../scripts/Card.js";
+import FormValidator from "../scripts/FormValidator.js";
+import Section from "../scripts/Section.js";
+import PopupWithImage from "../scripts/PopupWithImage.js";
+import PopupWithForm from "../scripts/PopupWithForm.js";
+import UserInfo from "../scripts/UserInfo.js";
 
 
 //#region Элементы управления
@@ -20,6 +20,8 @@ const placeNameField = document.querySelector('.popup__input_place_name');
 const placeUrlField = document.querySelector('.popup__input_place_url');
 const postsContainer = document.querySelector('.elements__container');
 const postTemplate = document.getElementById('postTemplate');
+const nameField = document.querySelector('.popup__input_type_name');
+const aboutField = document.querySelector('.popup__input_type_about');
 const selectors = {
     popupSelector: '.popup',
     formSelector: '.popup__form',
@@ -32,28 +34,26 @@ const selectors = {
 
 //#endregion
 
-//#region Всплывающие окна
-
+//#region Экземпляры кдассов
+const userInfo = new UserInfo(profileName, profileAbout);
+const popupPlaceZoom = new PopupWithImage(popupPlaceZoomSelector);
 const popupProfile = new PopupWithForm(popupProfileSelector, submitProfileForm);
 const popupPlace = new PopupWithForm(popupPlaceSelector, addPost);
-
-//#endregion
-
+popupProfile.setEventListeners();
+popupPlace.setEventListeners();
+popupPlaceZoom.setEventListeners();
 const profileEditFormValidator = new FormValidator(selectors, popupProfileSelector);
 profileEditFormValidator.enableValidation();
-
 const cardAddFormValidator = new FormValidator(selectors, popupPlaceSelector);
 cardAddFormValidator.enableValidation();
-
 const section = new Section({ items: initialCards, renderer: createCard }, postsContainer);
 section.renderItems();
+//#endregion
 
-const userInfo = new UserInfo(profileName, profileAbout);
 
 //#region Методы
 
 function handleCardClick(name, link) {
-    const popupPlaceZoom = new PopupWithImage(popupPlaceZoomSelector);
     popupPlaceZoom.open({ name: name, link: link });
 }
 
@@ -66,15 +66,27 @@ function createCard(item) {
 function submitProfileForm(userData) {
     userInfo.setUserInfo(userData);
     popupProfile.close();
-    return false;
+}
+
+function openProfilePopup() {
+    profileEditFormValidator.resetValidation();
+    const data = userInfo.getUserInfo();
+    nameField.value = data.name;
+    aboutField.value = data.about;
+    popupProfile.open();
+}
+
+function openPopupPlace() {
+    cardAddFormValidator.resetValidation();
+    popupPlace.open();
+
 }
 
 //#endregion
 
 //#region Действия с постами
 
-function addPost(event) {
-    event.preventDefault;
+function addPost() {
     postsContainer.prepend(
         createCard({
             name: placeNameField.value,
@@ -82,15 +94,16 @@ function addPost(event) {
         })
     );
     popupPlace.close();
-    const btnAddPost = document.getElementById('btnPopupAddPost'); 
+    const btnAddPost = document.getElementById('btnPopupAddPost');
     btnAddPost.disabled = true;
 }
+
 //#endregion
 
 //#region Обработчики событий
 
-editButton.addEventListener('click', function () { popupProfile.open(popupProfile); });
-addButton.addEventListener('click', function () { popupPlace.open(popupProfile); });
+editButton.addEventListener('click', openProfilePopup);
+addButton.addEventListener('click', openPopupPlace);
 
 //#endregion
 
