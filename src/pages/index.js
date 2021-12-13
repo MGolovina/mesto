@@ -93,9 +93,7 @@ function addPost() {
             link: placeUrlField.value
         })
     );
-    popupPlace.close();
-    const btnAddPost = document.getElementById('btnPopupAddPost');
-    btnAddPost.disabled = true;
+    popupPlace.close();    
 }
 
 //#endregion

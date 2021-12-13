@@ -5,7 +5,6 @@ class Card {
         this._postTemplate = postTemplate;
         this._handleCardClick = handleCardClick;
         this._selectors = selectors;
-
     }
 
     _getCardTemplate() {
