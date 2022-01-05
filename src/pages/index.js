@@ -98,7 +98,7 @@ const popupWithConfirmation = new PopupWithConfirmation(popupConfirm, {
 const createCard = (data) => {
   const card = new Card(data, postTemplate, selectors, imageSelectors, ownerId, {
     handleCardClick: (data) => {
-      popupPlaceZoom.open(data);
+      popupPlaceImageZoom.open(data);
     },
     handleDeleteCardClick: () => {
       tempCard = card;
