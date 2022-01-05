@@ -25,6 +25,7 @@ export default class UserInfo {
   setUserInfo(userData) {
     if (userData.name !== undefined || data.avatar !== null) {
       this._name.textContent = userData.name;
+      this._avatar.alt = `${userData.name} avatar`;
     }
     else {
       return false
@@ -35,7 +36,6 @@ export default class UserInfo {
     else {
       return false
     }
-    this.setUserAvatar(userData);
-    this._avatar.alt = `${userData.name} avatar`;
+    this.setUserAvatar(userData);   
   }
 }
