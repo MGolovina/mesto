@@ -1,25 +1,40 @@
 export default class UserInfo {
-  constructor(profileName, profileAbout,profileAvatarImage ) {
+  constructor(profileName, profileAbout, profileAvatarImage) {
     this._name = profileName;
     this._caption = profileAbout;
     this._avatar = profileAvatarImage;
   }
 
   getUserInfo() {
-      this._userData = {
+    this._userData = {
       name: this._name.textContent,
       about: this._caption.textContent,
-         };
+    };
     return this._userData;
   }
 
   setUserAvatar(data) {
-    this._avatar.src = data.avatar;
+    if (data.avatar !== undefined || data.avatar !== null) {
+      this._avatar.src = data.avatar;
+    }
+    else {
+      return false
+    }
   }
 
   setUserInfo(userData) {
-    this._name.textContent = userData.name;
-    this._caption.textContent = userData.about;
+    if (userData.name !== undefined || data.avatar !== null) {
+      this._name.textContent = userData.name;
+    }
+    else {
+      return false
+    }
+    if (userData.about !== undefined || data.avatar !== null) {
+      this._caption.textContent = userData.about;
+    }
+    else {
+      return false
+    }
     this.setUserAvatar(userData);
     this._avatar.alt = `${userData.name} avatar`;
   }
